@@ -32,42 +32,40 @@ public class VendingMachine {
         //
         // step 1: check if choice exists {
         //
-        if (cans.containsKey(choice)) {
-            //
-            // step2 : check price
-            //
-            if (cans.get(choice).price == 0) {
-                res = cans.get(choice).getType();
-                // or price matches
-            } else {
+        if (!cans.containsKey(choice)) return Can.none;
 
-                switch (paymentMethod) {
-                    case COIN:
-                        if (credits != -1 && cans.get(choice).price <= credits) {
-                            res = cans.get(choice).getType();
-                            credits -= cans.get(choice).price;
-                        }
-                        break;
-                    case CHIPKNIP:
-                        // TODO: if this machine is in belgium this must be an error
-                        // {
-                        if (chipknip.HasValue(cans.get(choice).price)) {
-                            chipknip.Reduce(cans.get(choice).price);
-                            res = cans.get(choice).getType();
-                        }
-                        break;
-                    default:
-                        // TODO: Is this a valid situation?:
-                        // larry forgot the } else { clause
-                        // i added it, but i am acutally not sure as to wether this
-                        // is a problem
-                        // unknown payment
-                        break;
-                    // i think(i) nobody inserted anything
-                }
-            }
+        //
+        // step2 : check price
+        //
+        if (cans.get(choice).price == 0) {
+            res = cans.get(choice).getType();
+            // or price matches
         } else {
-            res = Can.none;
+
+            switch (paymentMethod) {
+                case COIN:
+                    if (credits != -1 && cans.get(choice).price <= credits) {
+                        res = cans.get(choice).getType();
+                        credits -= cans.get(choice).price;
+                    }
+                    break;
+                case CHIPKNIP:
+                    // TODO: if this machine is in belgium this must be an error
+                    // {
+                    if (chipknip.HasValue(cans.get(choice).price)) {
+                        chipknip.Reduce(cans.get(choice).price);
+                        res = cans.get(choice).getType();
+                    }
+                    break;
+                default:
+                    // TODO: Is this a valid situation?:
+                    // larry forgot the } else { clause
+                    // i added it, but i am acutally not sure as to wether this
+                    // is a problem
+                    // unknown payment
+                    break;
+                // i think(i) nobody inserted anything
+            }
         }
 
         //
