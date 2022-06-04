@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class VendingMachine {
 
-    private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
+    private final Map<Choice, CanContainer> cans = new HashMap<>();
     private Wallet wallet = new Wallet();
 
     public void setValue(int amount) {
