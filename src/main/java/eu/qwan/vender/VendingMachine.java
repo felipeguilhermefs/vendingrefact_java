@@ -19,23 +19,23 @@ public class VendingMachine {
     public Can deliver(Choice choice) {
         if (!cans.containsKey(choice)) return Can.none;
 
-        var can = cans.get(choice);
+        var canContainer = cans.get(choice);
 
-        if (can.getAmount() <= 0) {
+        if (canContainer.getAmount() <= 0) {
             return Can.none;
         }
 
         Can res = Can.none;
-        if (can.price == 0) {
-            res = can.getType();
+        if (canContainer.price == 0) {
+            res = canContainer.getType();
         } else {
-            if (wallet.deductPayment(can.price)) {
-                res = can.getType();
+            if (wallet.deductPayment(canContainer.price)) {
+                res = canContainer.getType();
             }
         }
 
         if (res != Can.none) {
-            can.setAmount(can.getAmount() - 1);
+            canContainer.setAmount(canContainer.getAmount() - 1);
         }
 
         return res;
