@@ -2,7 +2,7 @@ package eu.qwan.vender;
 
 public abstract class WalletImpl implements Wallet {
 
-    public int credits;
+    protected int credits;
 
     @Override
     public boolean deductPayment(int amount) {
