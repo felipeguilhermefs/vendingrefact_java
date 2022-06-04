@@ -9,7 +9,6 @@ public class VendingMachine {
     private int payment_method;
     private Chipknip chipknip;
     private int c = -1;
-    private int price;
 
     public void set_value(int v) {
         payment_method = 1;
@@ -105,7 +104,6 @@ public class VendingMachine {
     }
 
     public void configure(Choice choice, Can c, int n, int price) {
-        this.price = price;
         if (cans.containsKey(choice)) {
             cans.get(choice).setAmount(cans.get(choice).getAmount() + n);
             return;
