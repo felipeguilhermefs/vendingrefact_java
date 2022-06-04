@@ -21,15 +21,12 @@ public class VendingMachine {
 
         var canContainer = cans.get(choice);
 
-        if (canContainer.getAmount() <= 0) {
-            return Can.none;
-        }
+        if (canContainer.getAmount() <= 0) return Can.none;
+
+        if (!wallet.deductPayment(canContainer.getPrice())) return Can.none;
 
         Can res = Can.none;
-        if (wallet.deductPayment(canContainer.getPrice())) {
-            res = canContainer.getType();
-        }
-
+        res = canContainer.getType();
         if (res != Can.none) {
             canContainer.setAmount(canContainer.getAmount() - 1);
         }
