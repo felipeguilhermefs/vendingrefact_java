@@ -33,8 +33,7 @@ public class VendingMachine {
             res = can.getType();
             // or price matches
         } else {
-            if (wallet.hasValue(can.price)) {
-                wallet.reduce(can.price);
+            if (wallet.deductPayment(can.price)) {
                 res = can.getType();
             }
         }

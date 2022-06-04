@@ -5,13 +5,11 @@ public class CoinWallet implements Wallet {
     private int credits;
 
     @Override
-    public boolean hasValue(int amount) {
-        return amount <= credits;
-    }
+    public boolean deductPayment(int amount) {
+        if (amount > credits) return false;
 
-    @Override
-    public void reduce(int amount) {
         credits -= amount;
+        return true;
     }
 
     @Override

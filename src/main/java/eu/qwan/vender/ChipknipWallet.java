@@ -8,14 +8,13 @@ public class ChipknipWallet implements Wallet {
         credits = initial_value;
     }
 
-    @Override
-    public boolean hasValue(int amount) {
-        return credits >= amount;
-    }
 
     @Override
-    public void reduce(int amount) {
+    public boolean deductPayment(int amount) {
+        if (amount > credits) return false;
+
         credits -= amount;
+        return true;
     }
 
     @Override
