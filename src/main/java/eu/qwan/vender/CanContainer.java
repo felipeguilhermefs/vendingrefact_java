@@ -26,6 +26,10 @@ public class CanContainer {
 		return amount;
 	}
 
+	public boolean isEmpty() {
+		return amount <= 0;
+	}
+
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
