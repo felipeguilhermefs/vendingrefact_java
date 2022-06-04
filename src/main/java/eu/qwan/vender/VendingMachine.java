@@ -34,19 +34,19 @@ public class VendingMachine {
         return wallet.withdrawCredits();
     }
 
-    public void configure(Choice choice, Can c, int n) {
-        configure(choice, c, n, 0);
+    public void configure(Choice choice, Can can, int quantity) {
+        configure(choice, can, quantity, 0);
     }
 
-    public void configure(Choice choice, Can c, int n, int price) {
+    public void configure(Choice choice, Can can, int quantity, int price) {
         if (cans.containsKey(choice)) {
-            cans.get(choice).setAmount(cans.get(choice).getAmount() + n);
+            cans.get(choice).setAmount(cans.get(choice).getAmount() + quantity);
             return;
         }
-        CanContainer can = new CanContainer();
-        can.setType(c);
-        can.setAmount(n);
-        can.setPrice(price);
-        cans.put(choice, can);
+        CanContainer container = new CanContainer();
+        container.setType(can);
+        container.setAmount(quantity);
+        container.setPrice(price);
+        cans.put(choice, container);
     }
 }
