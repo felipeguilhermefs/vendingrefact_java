@@ -30,10 +30,19 @@ public class VendingMachine {
         //
         if (!cans.containsKey(choice)) return Can.none;
 
+        var can = cans.get(choice);
+        //
+        // step 3: check stock
+        //
+        if (can.getAmount() <= 0) {
+            return Can.none;
+        } else {
+            can.setAmount(can.getAmount() - 1);
+        }
+
         //
         // step2 : check price
         //
-        var can = cans.get(choice);
         if (can.price == 0) {
             res = can.getType();
             // or price matches
@@ -62,17 +71,6 @@ public class VendingMachine {
                     // unknown payment
                     break;
                 // i think(i) nobody inserted anything
-            }
-        }
-
-        //
-        // step 3: check stock
-        //
-        if (res != Can.none) {
-            if (can.getAmount() <= 0) {
-                res = Can.none;
-            } else {
-                can.setAmount(can.getAmount() - 1);
             }
         }
 
