@@ -15,10 +15,6 @@ public class CanContainer {
 		return price;
 	}
 
-	public int getAmount() {
-		return amount;
-	}
-
 	public boolean isEmpty() {
 		return amount <= 0;
 	}
@@ -28,7 +24,7 @@ public class CanContainer {
 		return type;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void addStock(int quantity) {
+		this.amount += quantity;
 	}
 }

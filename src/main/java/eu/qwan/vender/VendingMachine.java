@@ -40,7 +40,7 @@ public class VendingMachine {
 
     public void configure(Choice choice, Can can, int quantity, int price) {
         if (cans.containsKey(choice)) {
-            cans.get(choice).setAmount(cans.get(choice).getAmount() + quantity);
+            cans.get(choice).addStock(quantity);
             return;
         }
         var container = new CanContainer(can, quantity, price);
