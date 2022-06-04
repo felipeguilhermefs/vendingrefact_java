@@ -13,12 +13,9 @@ public class VendingMachine {
     }
 
     public void insertChip(ChipknipWallet chipknip) {
-        // TODO
-        // can't pay with chip in brittain
         wallet = chipknip;
     }
 
-    // delivers the can if all ok {
     public Can deliver(Choice choice) {
         if (!cans.containsKey(choice)) return Can.none;
 
@@ -31,7 +28,6 @@ public class VendingMachine {
         Can res = Can.none;
         if (can.price == 0) {
             res = can.getType();
-            // or price matches
         } else {
             if (wallet.deductPayment(can.price)) {
                 res = can.getType();
