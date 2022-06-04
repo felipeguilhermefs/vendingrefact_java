@@ -23,9 +23,11 @@ public class VendingMachine {
 
         if (canContainer.isEmpty()) return Can.none;
 
-        if (!wallet.deductPayment(canContainer.getPrice())) return Can.none;
+        if (wallet.deductPayment(canContainer.getPrice())) {
+            return canContainer.withdraw();
+        }
 
-        return canContainer.withdraw();
+        return Can.none;
     }
 
     public int getChange() {
