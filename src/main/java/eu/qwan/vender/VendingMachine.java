@@ -6,7 +6,7 @@ import java.util.Map;
 public class VendingMachine {
 
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
-    private Wallet wallet = new CoinWallet();
+    private Wallet wallet = new Wallet();
 
     public void setValue(int amount) {
         wallet.addCredits(amount);

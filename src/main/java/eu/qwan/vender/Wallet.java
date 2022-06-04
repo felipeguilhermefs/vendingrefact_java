@@ -1,6 +1,6 @@
 package eu.qwan.vender;
 
-public abstract class Wallet {
+public class Wallet {
 
     protected int credits;
 
