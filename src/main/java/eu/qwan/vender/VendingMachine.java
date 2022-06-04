@@ -44,13 +44,13 @@ public class VendingMachine {
             } else {
 
                 switch (payment_method) {
-                    case COINS: // paying with coins
+                    case COINS:
                         if (c != -1 && cans.get(choice).price <= c) {
                             res = cans.get(choice).getType();
                             c -= cans.get(choice).price;
                         }
                         break;
-                    case CHIPKNIP: // paying with chipknip -
+                    case CHIPKNIP:
                         // TODO: if this machine is in belgium this must be an error
                         // {
                         if (chipknip.HasValue(cans.get(choice).price)) {
