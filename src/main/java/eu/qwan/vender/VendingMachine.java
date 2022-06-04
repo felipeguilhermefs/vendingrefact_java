@@ -43,10 +43,7 @@ public class VendingMachine {
             cans.get(choice).setAmount(cans.get(choice).getAmount() + quantity);
             return;
         }
-        CanContainer container = new CanContainer();
-        container.setType(can);
-        container.setAmount(quantity);
-        container.setPrice(price);
+        var container = new CanContainer(can, quantity, price);
         cans.put(choice, container);
     }
 }
