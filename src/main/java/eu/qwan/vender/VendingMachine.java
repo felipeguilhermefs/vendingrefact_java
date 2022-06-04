@@ -48,8 +48,8 @@ public class VendingMachine implements Wallet {
                 case CHIPKNIP:
                     // TODO: if this machine is in belgium this must be an error
                     // {
-                    if (chipknip.HasValue(can.price)) {
-                        chipknip.Reduce(can.price);
+                    if (chipknip.hasValue(can.price)) {
+                        chipknip.reduce(can.price);
                         res = can.getType();
                     }
                     break;

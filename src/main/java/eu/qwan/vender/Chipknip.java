@@ -1,17 +1,19 @@
 package eu.qwan.vender;
 
-public class Chipknip {
+public class Chipknip implements Wallet {
 	public int credits;
 
 	public Chipknip(int initial_value) {
 		credits = initial_value;
 	}
 
-	public boolean HasValue(int p) {
-		return credits >= p;
+	@Override
+	public boolean hasValue(int amount) {
+		return credits >= amount;
 	}
 
-	public void Reduce(int p) {
-		credits -= p;
+	@Override
+	public void reduce(int amount) {
+		credits -= amount;
 	}
 }
