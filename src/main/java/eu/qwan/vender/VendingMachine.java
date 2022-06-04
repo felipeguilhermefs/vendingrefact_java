@@ -8,14 +8,14 @@ public class VendingMachine {
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
     private PaymentMethod paymentMethod = PaymentMethod.COIN;
     private Chipknip chipknip;
-    private int c = -1;
+    private int credits = -1;
 
     public void set_value(int v) {
         paymentMethod = PaymentMethod.COIN;
-        if (c != -1) {
-            c += v;
+        if (credits != -1) {
+            credits += v;
         } else {
-            c = v;
+            credits = v;
         }
     }
 
@@ -43,9 +43,9 @@ public class VendingMachine {
 
                 switch (paymentMethod) {
                     case COIN:
-                        if (c != -1 && cans.get(choice).price <= c) {
+                        if (credits != -1 && cans.get(choice).price <= credits) {
                             res = cans.get(choice).getType();
-                            c -= cans.get(choice).price;
+                            credits -= cans.get(choice).price;
                         }
                         break;
                     case CHIPKNIP:
@@ -92,9 +92,9 @@ public class VendingMachine {
 
     public int get_change() {
         int to_return = 0;
-        if (c > 0) {
-            to_return = c;
-            c = 0;
+        if (credits > 0) {
+            to_return = credits;
+            credits = 0;
         }
         return to_return;
     }
