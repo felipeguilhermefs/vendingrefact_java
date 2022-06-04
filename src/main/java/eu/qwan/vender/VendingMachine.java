@@ -6,12 +6,10 @@ import java.util.Map;
 public class VendingMachine implements Wallet {
 
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
-    private PaymentMethod paymentMethod = PaymentMethod.COIN;
     private Wallet wallet = this;
     private int credits = 0;
 
     public void setValue(int v) {
-        paymentMethod = PaymentMethod.COIN;
         wallet = this;
         credits += v;
     }
@@ -19,7 +17,6 @@ public class VendingMachine implements Wallet {
     public void insertChip(Chipknip chipknip) {
         // TODO
         // can't pay with chip in brittain
-        paymentMethod = PaymentMethod.CHIPKNIP;
         wallet = chipknip;
     }
 
