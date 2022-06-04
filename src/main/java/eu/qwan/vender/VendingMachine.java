@@ -24,17 +24,15 @@ public class VendingMachine {
 
     // delivers the can if all ok {
     public Can deliver(Choice choice) {
-        Can res = Can.none;
         if (!cans.containsKey(choice)) return Can.none;
 
         var can = cans.get(choice);
 
         if (can.getAmount() <= 0) {
             return Can.none;
-        } else {
-            can.setAmount(can.getAmount() - 1);
         }
 
+        Can res = Can.none;
         if (can.price == 0) {
             res = can.getType();
             // or price matches
@@ -64,6 +62,10 @@ public class VendingMachine {
                     break;
                 // i think(i) nobody inserted anything
             }
+        }
+
+        if (res != Can.none) {
+            can.setAmount(can.getAmount() - 1);
         }
 
         return res;
