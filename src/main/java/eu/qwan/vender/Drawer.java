@@ -1,11 +1,11 @@
 package eu.qwan.vender;
 
-public class CanContainer {
+public class Drawer {
 	private final Can type;
 	private final int price;
 	private int amount;
 
-	public CanContainer(Can can, int quantity, int price) {
+	public Drawer(Can can, int quantity, int price) {
 		this.type = can;
 		this.amount = quantity;
 		this.price = price;

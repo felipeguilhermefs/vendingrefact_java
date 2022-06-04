@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class VendingMachine {
 
-    private final Map<Choice, CanContainer> cans = new HashMap<>();
+    private final Map<Choice, Drawer> drawers = new HashMap<>();
     private Wallet wallet = new Wallet();
 
     public void setValue(int amount) {
@@ -17,14 +17,14 @@ public class VendingMachine {
     }
 
     public Can deliver(Choice choice) {
-        if (!cans.containsKey(choice)) return Can.none;
+        if (!drawers.containsKey(choice)) return Can.none;
 
-        var canContainer = cans.get(choice);
+        var drawer = drawers.get(choice);
 
-        if (canContainer.isEmpty()) return Can.none;
+        if (drawer.isEmpty()) return Can.none;
 
-        if (wallet.deductPayment(canContainer.getPrice())) {
-            return canContainer.withdraw();
+        if (wallet.deductPayment(drawer.getPrice())) {
+            return drawer.withdraw();
         }
 
         return Can.none;
@@ -39,7 +39,7 @@ public class VendingMachine {
     }
 
     public void configure(Choice choice, Can can, int quantity, int price) {
-        cans.computeIfAbsent(choice, k -> new CanContainer(can, 0, price))
+        drawers.computeIfAbsent(choice, k -> new Drawer(can, 0, price))
             .addStock(quantity);
     }
 }
