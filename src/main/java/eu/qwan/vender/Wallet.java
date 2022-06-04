@@ -1,10 +1,23 @@
 package eu.qwan.vender;
 
-public interface Wallet {
+public abstract class Wallet {
 
-    boolean deductPayment(int amount);
+    protected int credits;
 
-    void addCredits(int amount);
+    public boolean deductPayment(int amount) {
+        if (amount > credits) return false;
 
-    int withdrawCredits();
+        credits -= amount;
+        return true;
+    }
+
+    public void addCredits(int amount) {
+        credits += amount;
+    }
+
+    public int withdrawCredits() {
+        int amount = credits;
+        credits = 0;
+        return amount;
+    }
 }
