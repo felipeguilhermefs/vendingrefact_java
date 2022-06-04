@@ -3,18 +3,16 @@ package eu.qwan.vender;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VendingMachine implements Wallet {
+public class VendingMachine {
 
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
-    private Wallet wallet = this;
-    private int credits = 0;
+    private Wallet wallet = new CoinWallet();
 
-    public void setValue(int v) {
-        wallet = this;
-        credits += v;
+    public void setValue(int amount) {
+        wallet.addCredits(amount);
     }
 
-    public void insertChip(Chipknip chipknip) {
+    public void insertChip(ChipknipWallet chipknip) {
         // TODO
         // can't pay with chip in brittain
         wallet = chipknip;
@@ -49,8 +47,8 @@ public class VendingMachine implements Wallet {
     }
 
     public int getChange() {
-        var change = credits;
-        credits = 0;
+        var change = wallet.getCredits();
+        wallet.reduce(change);
         return change;
     }
 
@@ -68,15 +66,5 @@ public class VendingMachine implements Wallet {
         can.setAmount(n);
         can.setPrice(price);
         cans.put(choice, can);
-    }
-
-    @Override
-    public boolean hasValue(int amount) {
-        return amount <= credits;
-    }
-
-    @Override
-    public void reduce(int amount) {
-        credits -= amount;
     }
 }
