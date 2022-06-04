@@ -1,8 +1,8 @@
 package eu.qwan.vender;
 
-public class CoinWallet extends WalletImpl {
+public abstract class WalletImpl implements Wallet {
 
-    private int credits;
+    public int credits;
 
     @Override
     public boolean deductPayment(int amount) {

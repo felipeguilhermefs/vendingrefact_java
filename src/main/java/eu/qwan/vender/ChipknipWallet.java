@@ -1,6 +1,6 @@
 package eu.qwan.vender;
 
-public class ChipknipWallet implements Wallet {
+public class ChipknipWallet extends WalletImpl {
 
     public int credits;
 
