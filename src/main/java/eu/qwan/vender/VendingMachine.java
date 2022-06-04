@@ -5,15 +5,13 @@ import java.util.Map;
 
 public class VendingMachine {
 
-    private static final int COINS = 1;
-    private static final int CHIPKNIP = 2;
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
-    private int payment_method;
+    private PaymentMethod paymentMethod = PaymentMethod.COIN;
     private Chipknip chipknip;
     private int c = -1;
 
     public void set_value(int v) {
-        payment_method = COINS;
+        paymentMethod = PaymentMethod.COIN;
         if (c != -1) {
             c += v;
         } else {
@@ -24,7 +22,7 @@ public class VendingMachine {
     public void insert_chip(Chipknip chipknip) {
         // TODO
         // can't pay with chip in brittain
-        payment_method = CHIPKNIP;
+        paymentMethod = PaymentMethod.CHIPKNIP;
         this.chipknip = chipknip;
     }
 
@@ -43,8 +41,8 @@ public class VendingMachine {
                 // or price matches
             } else {
 
-                switch (payment_method) {
-                    case COINS:
+                switch (paymentMethod) {
+                    case COIN:
                         if (c != -1 && cans.get(choice).price <= c) {
                             res = cans.get(choice).getType();
                             c -= cans.get(choice).price;
