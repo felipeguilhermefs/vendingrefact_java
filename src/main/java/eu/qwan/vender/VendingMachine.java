@@ -37,24 +37,25 @@ public class VendingMachine {
         //
         // step2 : check price
         //
-        if (cans.get(choice).price == 0) {
-            res = cans.get(choice).getType();
+        var can = cans.get(choice);
+        if (can.price == 0) {
+            res = can.getType();
             // or price matches
         } else {
 
             switch (paymentMethod) {
                 case COIN:
-                    if (credits != -1 && cans.get(choice).price <= credits) {
-                        res = cans.get(choice).getType();
-                        credits -= cans.get(choice).price;
+                    if (credits != -1 && can.price <= credits) {
+                        res = can.getType();
+                        credits -= can.price;
                     }
                     break;
                 case CHIPKNIP:
                     // TODO: if this machine is in belgium this must be an error
                     // {
-                    if (chipknip.HasValue(cans.get(choice).price)) {
-                        chipknip.Reduce(cans.get(choice).price);
-                        res = cans.get(choice).getType();
+                    if (chipknip.HasValue(can.price)) {
+                        chipknip.Reduce(can.price);
+                        res = can.getType();
                     }
                     break;
                 default:
@@ -72,10 +73,10 @@ public class VendingMachine {
         // step 3: check stock
         //
         if (res != Can.none) {
-            if (cans.get(choice).getAmount() <= 0) {
+            if (can.getAmount() <= 0) {
                 res = Can.none;
             } else {
-                cans.get(choice).setAmount(cans.get(choice).getAmount() - 1);
+                can.setAmount(can.getAmount() - 1);
             }
         }
 
