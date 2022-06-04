@@ -25,8 +25,7 @@ public class VendingMachine {
 
         if (!wallet.deductPayment(canContainer.getPrice())) return Can.none;
 
-        canContainer.setAmount(canContainer.getAmount() - 1);
-        return canContainer.getType();
+        return canContainer.withdraw();
     }
 
     public int getChange() {

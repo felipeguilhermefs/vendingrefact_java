@@ -4,10 +4,6 @@ public class CanContainer {
 	private Can type;
 	private int price;
 
-	public Can getType() {
-		return type;
-	}
-
 	public void setType(Can type) {
 		this.type = type;
 	}
@@ -28,6 +24,11 @@ public class CanContainer {
 
 	public boolean isEmpty() {
 		return amount <= 0;
+	}
+
+	public Can withdraw() {
+		amount -= 1;
+		return type;
 	}
 
 	public void setAmount(int amount) {
