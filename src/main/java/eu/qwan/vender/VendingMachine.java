@@ -7,11 +7,12 @@ public class VendingMachine implements Wallet {
 
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
     private PaymentMethod paymentMethod = PaymentMethod.COIN;
-    private Chipknip chipknip;
+    private Wallet wallet = this;
     private int credits = 0;
 
     public void setValue(int v) {
         paymentMethod = PaymentMethod.COIN;
+        wallet = this;
         credits += v;
     }
 
@@ -19,7 +20,7 @@ public class VendingMachine implements Wallet {
         // TODO
         // can't pay with chip in brittain
         paymentMethod = PaymentMethod.CHIPKNIP;
-        this.chipknip = chipknip;
+        wallet = chipknip;
     }
 
     // delivers the can if all ok {
@@ -48,8 +49,8 @@ public class VendingMachine implements Wallet {
                 case CHIPKNIP:
                     // TODO: if this machine is in belgium this must be an error
                     // {
-                    if (chipknip.hasValue(can.price)) {
-                        chipknip.reduce(can.price);
+                    if (wallet.hasValue(can.price)) {
+                        wallet.reduce(can.price);
                         res = can.getType();
                     }
                     break;
