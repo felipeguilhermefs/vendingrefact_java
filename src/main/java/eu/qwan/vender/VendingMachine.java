@@ -5,13 +5,15 @@ import java.util.Map;
 
 public class VendingMachine {
 
+    private static final int COINS = 1;
+    private static final int CHIPKNIP = 2;
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
     private int payment_method;
     private Chipknip chipknip;
     private int c = -1;
 
     public void set_value(int v) {
-        payment_method = 1;
+        payment_method = COINS;
         if (c != -1) {
             c += v;
         } else {
@@ -22,7 +24,7 @@ public class VendingMachine {
     public void insert_chip(Chipknip chipknip) {
         // TODO
         // can't pay with chip in brittain
-        payment_method = 2;
+        payment_method = CHIPKNIP;
         this.chipknip = chipknip;
     }
 
@@ -42,13 +44,13 @@ public class VendingMachine {
             } else {
 
                 switch (payment_method) {
-                    case 1: // paying with coins
+                    case COINS: // paying with coins
                         if (c != -1 && cans.get(choice).price <= c) {
                             res = cans.get(choice).getType();
                             c -= cans.get(choice).price;
                         }
                         break;
-                    case 2: // paying with chipknip -
+                    case CHIPKNIP: // paying with chipknip -
                         // TODO: if this machine is in belgium this must be an error
                         // {
                         if (chipknip.HasValue(cans.get(choice).price)) {
