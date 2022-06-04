@@ -25,24 +25,16 @@ public class VendingMachine {
     // delivers the can if all ok {
     public Can deliver(Choice choice) {
         Can res = Can.none;
-        //
-        // step 1: check if choice exists {
-        //
         if (!cans.containsKey(choice)) return Can.none;
 
         var can = cans.get(choice);
-        //
-        // step 3: check stock
-        //
+
         if (can.getAmount() <= 0) {
             return Can.none;
         } else {
             can.setAmount(can.getAmount() - 1);
         }
 
-        //
-        // step2 : check price
-        //
         if (can.price == 0) {
             res = can.getType();
             // or price matches
