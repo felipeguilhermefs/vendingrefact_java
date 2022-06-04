@@ -8,15 +8,11 @@ public class VendingMachine {
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
     private PaymentMethod paymentMethod = PaymentMethod.COIN;
     private Chipknip chipknip;
-    private int credits = -1;
+    private int credits = 0;
 
     public void set_value(int v) {
         paymentMethod = PaymentMethod.COIN;
-        if (credits != -1) {
-            credits += v;
-        } else {
-            credits = v;
-        }
+        credits += v;
     }
 
     public void insert_chip(Chipknip chipknip) {
