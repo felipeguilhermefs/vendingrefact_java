@@ -47,9 +47,7 @@ public class VendingMachine {
     }
 
     public int getChange() {
-        var change = wallet.getCredits();
-        wallet.reduce(change);
-        return change;
+        return wallet.withdrawCredits();
     }
 
     public void configure(Choice choice, Can c, int n) {

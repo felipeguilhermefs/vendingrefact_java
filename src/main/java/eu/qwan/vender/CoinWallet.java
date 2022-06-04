@@ -15,12 +15,14 @@ public class CoinWallet implements Wallet {
     }
 
     @Override
-    public int getCredits() {
-        return credits;
+    public void addCredits(int amount) {
+        credits += amount;
     }
 
     @Override
-    public void addCredits(int amount) {
-        credits += amount;
+    public int withdrawCredits() {
+        int amount = credits;
+        credits = 0;
+        return amount;
     }
 }
