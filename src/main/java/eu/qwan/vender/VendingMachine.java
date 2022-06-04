@@ -10,12 +10,12 @@ public class VendingMachine {
     private Chipknip chipknip;
     private int credits = 0;
 
-    public void set_value(int v) {
+    public void setValue(int v) {
         paymentMethod = PaymentMethod.COIN;
         credits += v;
     }
 
-    public void insert_chip(Chipknip chipknip) {
+    public void insertChip(Chipknip chipknip) {
         // TODO
         // can't pay with chip in brittain
         paymentMethod = PaymentMethod.CHIPKNIP;
@@ -79,7 +79,7 @@ public class VendingMachine {
         return res;
     }
 
-    public int get_change() {
+    public int getChange() {
         var change = credits;
         credits = 0;
         return change;
