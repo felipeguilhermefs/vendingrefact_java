@@ -3,7 +3,7 @@ package eu.qwan.vender;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VendingMachine {
+public class VendingMachine implements Wallet {
 
     private final Map<Choice, CanContainer> cans = new HashMap<Choice, CanContainer>();
     private PaymentMethod paymentMethod = PaymentMethod.COIN;
@@ -40,9 +40,9 @@ public class VendingMachine {
 
             switch (paymentMethod) {
                 case COIN:
-                    if (credits != -1 && can.price <= credits) {
+                    if (this.hasValue(can.price)) {
                         res = can.getType();
-                        credits -= can.price;
+                        this.reduce(can.price);
                     }
                     break;
                 case CHIPKNIP:
@@ -91,5 +91,15 @@ public class VendingMachine {
         can.setAmount(n);
         can.setPrice(price);
         cans.put(choice, can);
+    }
+
+    @Override
+    public boolean hasValue(int amount) {
+        return amount <= credits;
+    }
+
+    @Override
+    public void reduce(int amount) {
+        credits -= amount;
     }
 }
