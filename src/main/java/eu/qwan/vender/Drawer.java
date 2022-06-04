@@ -1,30 +1,31 @@
 package eu.qwan.vender;
 
 public class Drawer {
-	private final Can type;
-	private final int price;
-	private int amount;
 
-	public Drawer(Can can, int quantity, int price) {
-		this.type = can;
-		this.amount = quantity;
-		this.price = price;
-	}
+    private final Can can;
+    private final int price;
+    private int inStock;
 
-	public int getPrice() {
-		return price;
-	}
+    public Drawer(Can can, int initialStock, int price) {
+        this.can = can;
+        this.inStock = initialStock;
+        this.price = price;
+    }
 
-	public boolean isEmpty() {
-		return amount <= 0;
-	}
+    public int getPrice() {
+        return price;
+    }
 
-	public Can withdraw() {
-		amount -= 1;
-		return type;
-	}
+    public boolean isEmpty() {
+        return inStock <= 0;
+    }
 
-	public void addStock(int quantity) {
-		this.amount += quantity;
-	}
+    public Can withdraw() {
+        inStock -= 1;
+        return can;
+    }
+
+    public void addStock(int quantity) {
+        this.inStock += quantity;
+    }
 }
