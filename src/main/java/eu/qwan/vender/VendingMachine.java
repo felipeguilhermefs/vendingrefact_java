@@ -38,30 +38,9 @@ public class VendingMachine implements Wallet {
             res = can.getType();
             // or price matches
         } else {
-
-            switch (paymentMethod) {
-                case COIN:
-                    if (this.hasValue(can.price)) {
-                        res = can.getType();
-                        this.reduce(can.price);
-                    }
-                    break;
-                case CHIPKNIP:
-                    // TODO: if this machine is in belgium this must be an error
-                    // {
-                    if (wallet.hasValue(can.price)) {
-                        wallet.reduce(can.price);
-                        res = can.getType();
-                    }
-                    break;
-                default:
-                    // TODO: Is this a valid situation?:
-                    // larry forgot the } else { clause
-                    // i added it, but i am acutally not sure as to wether this
-                    // is a problem
-                    // unknown payment
-                    break;
-                // i think(i) nobody inserted anything
+            if (wallet.hasValue(can.price)) {
+                wallet.reduce(can.price);
+                res = can.getType();
             }
         }
 
