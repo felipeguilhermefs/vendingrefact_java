@@ -18,9 +18,9 @@ public class VendingMachine {
     }
 
     public Optional<Can> deliver(Choice choice) {
-        if (!drawers.containsKey(choice)) return Optional.empty();
+        var drawer = Optional.ofNullable(drawers.get(choice)).orElse(null);
 
-        var drawer = drawers.get(choice);
+        if (drawer == null) return Optional.empty();
 
         if (drawer.isEmpty()) return Optional.empty();
 
