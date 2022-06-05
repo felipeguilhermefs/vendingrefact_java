@@ -12,7 +12,7 @@ public class VendingMachineTest {
     private final VendingMachine machine = new VendingMachine();
 
     @Nested
-    class ChoilessMachine {
+    class ChoicelessMachine {
 
         @Test
         public void deliversNothing() {
@@ -53,53 +53,86 @@ public class VendingMachineTest {
         }
     }
 
-    @Test
-    public void deliversNothingWhenNotPaid() {
-        machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
+    @Nested
+    class PricedMachine {
 
-        assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
-    }
+        @BeforeEach
+        public void setup() {
+            machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
+            machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
+        }
 
-    @Test
-    public void deliversFantaWhenPaid() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
-        machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
+        @Test
+        public void deliversNothingWhenNotPaid() {
+            assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
+        }
 
-        machine.insertCredits(2);
-        assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
-        assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
-    }
+        @Test
+        public void deliversFantaWhenPaidExactAmount() {
+            machine.insertCredits(2);
 
-    @Test
-    public void deliversSpriteWhenPaid() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
-        machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+        }
 
-        machine.insertCredits(2);
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
-    }
+        @Test
+        public void deliversFantaWhenPaidMoreThanRequired() {
+            machine.insertCredits(3);
 
-    @Test
-    public void addPayments() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
-        machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+        }
 
-        machine.insertCredits(1);
-        machine.insertCredits(1);
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
-    }
+        @Test
+        public void deliversAsManyFantasAsPaidFor() {
+            machine.insertCredits(2);
 
-    @Test
-    public void returnsChange() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
-        machine.insertCredits(2);
-        assertEquals(2, machine.getChange());
-        assertEquals(0, machine.getChange());
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
+        }
+
+        @Test
+        public void deliversAsManySpritesAsPaidFor() {
+            machine.insertCredits(2);
+
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+        }
+
+        @Test
+        public void deliversFantaAfterPaymentIsEnough() {
+            machine.insertCredits(1);
+            machine.insertCredits(1);
+
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+        }
+
+        @Test
+        public void returnsChangeAfterBuyingFanta() {
+            machine.insertCredits(3);
+
+            machine.deliver(Choice.FANTA);
+
+            assertEquals(1, machine.getChange());
+        }
+
+        @Test
+        public void returnsNoChangeWhenUsedAllMoney() {
+            machine.insertCredits(2);
+
+            machine.deliver(Choice.FANTA);
+
+            assertEquals(0, machine.getChange());
+        }
+
+        @Test
+        public void returnsNoChangeWhenAskedASecondTime() {
+            machine.insertCredits(3);
+
+            machine.deliver(Choice.FANTA);
+
+            machine.getChange();
+            assertEquals(0, machine.getChange());
+        }
     }
 
     @Test
