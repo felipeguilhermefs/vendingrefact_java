@@ -1,5 +1,5 @@
 package eu.qwan.vender;
 
 enum Can {
-	cola, fanta, sprite, beer
+    COLA, FANTA, SPRITE, BEER
 }
