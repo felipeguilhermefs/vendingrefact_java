@@ -2,6 +2,7 @@ package eu.qwan.vender;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class VendingMachine {
 
@@ -14,6 +15,10 @@ public class VendingMachine {
 
     public void insertChip(ChipknipWallet chipknip) {
         wallet = chipknip;
+    }
+
+    public Optional<Can> deliverCan(Choice choice) {
+        return Optional.of(deliver(choice));
     }
 
     public Can deliver(Choice choice) {
