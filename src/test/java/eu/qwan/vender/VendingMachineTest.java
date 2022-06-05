@@ -16,7 +16,7 @@ public class VendingMachineTest {
 
         @Test
         public void deliversNothing() {
-            for (Choice choice : Choice.values()) {
+            for (Can choice : Can.values()) {
                 assertEquals(Optional.empty(), machine.deliver(choice));
             }
         }
