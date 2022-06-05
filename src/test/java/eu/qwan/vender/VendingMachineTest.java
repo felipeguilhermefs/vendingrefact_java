@@ -100,7 +100,7 @@ public class VendingMachineTest {
 	@Test
 	public void Testcheckout_chip_if_chipknip_inserted() {
 		machine.configure(Choice.sprite, Can.sprite, 1, 1);
-		ChipknipWallet chip = new ChipknipWallet(10);
+		Chipknip chip = new Chipknip(10);
 		machine.insertChip(chip);
 		assertEquals(Optional.of(Can.sprite), machine.deliver(Choice.sprite));
 		assertEquals(9, chip.credits);
@@ -109,7 +109,7 @@ public class VendingMachineTest {
 	@Test
 	public void Testcheckout_chip_empty() {
 		machine.configure(Choice.sprite, Can.sprite, 1, 1);
-		ChipknipWallet chip = new ChipknipWallet(0);
+		Chipknip chip = new Chipknip(0);
 		machine.insertChip(chip);
 		assertEquals(Optional.empty(), machine.deliver(Choice.sprite));
 		assertEquals(0, chip.credits);

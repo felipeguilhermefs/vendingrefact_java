@@ -13,7 +13,7 @@ public class VendingMachine {
         wallet.addCredits(amount);
     }
 
-    public void insertChip(ChipknipWallet chipknip) {
+    public void insertChip(Chipknip chipknip) {
         wallet = chipknip;
     }
 
