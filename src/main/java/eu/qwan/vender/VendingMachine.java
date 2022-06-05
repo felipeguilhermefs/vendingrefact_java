@@ -7,6 +7,7 @@ import java.util.Optional;
 public class VendingMachine {
 
     private final Map<Choice, Drawer> drawers = new HashMap<>();
+    private final Map<Can, Choice> canToChoice = new HashMap<>();
     private Wallet wallet = new Wallet();
 
     public void insertCredits(int amount) {
@@ -15,6 +16,10 @@ public class VendingMachine {
 
     public void insertChip(Chipknip chipknip) {
         wallet = chipknip;
+    }
+
+    public Optional<Can> deliver(Can choice) {
+        return deliver(canToChoice.get(choice));
     }
 
     public Optional<Can> deliver(Choice choice) {
@@ -35,5 +40,6 @@ public class VendingMachine {
     public void configure(Choice choice, Can can, int quantity, int price) {
         drawers.computeIfAbsent(choice, k -> new Drawer(can, 0, price))
             .addStock(quantity);
+        canToChoice.put(can, choice);
     }
 }
