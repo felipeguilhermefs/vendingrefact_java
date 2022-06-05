@@ -17,22 +17,18 @@ public class VendingMachine {
         wallet = chipknip;
     }
 
-    public Optional<Can> deliverCan(Choice choice) {
-        return Optional.ofNullable(deliver(choice));
-    }
-
-    public Can deliver(Choice choice) {
-        if (!drawers.containsKey(choice)) return null;
+    public Optional<Can> deliver(Choice choice) {
+        if (!drawers.containsKey(choice)) return Optional.empty();
 
         var drawer = drawers.get(choice);
 
-        if (drawer.isEmpty()) return null;
+        if (drawer.isEmpty()) return Optional.empty();
 
         if (wallet.deductPayment(drawer.getPrice())) {
-            return drawer.withdraw();
+            return Optional.of(drawer.withdraw());
         }
 
-        return null;
+        return Optional.empty();
     }
 
     public int getChange() {
