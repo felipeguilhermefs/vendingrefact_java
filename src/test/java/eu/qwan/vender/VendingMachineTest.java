@@ -135,20 +135,28 @@ public class VendingMachineTest {
         }
     }
 
-    @Test
-    public void stock() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 1, 0);
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
-    }
+    @Nested
+    class LimitedStockMachine {
 
-    @Test
-    public void addStock() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 1, 0);
-        machine.configure(Choice.SPRITE, Can.SPRITE, 1, 0);
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+        @BeforeEach
+        public void setup() {
+            machine.configure(Choice.SPRITE, Can.SPRITE, 1);
+        }
+
+        @Test
+        public void deliversNothingWhenStockIsDepleted() {
+            machine.deliver(Choice.SPRITE);
+
+            assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+        }
+
+        @Test
+        public void deliversAfterStockIsAdded() {
+            machine.deliver(Choice.SPRITE);
+            machine.configure(Choice.SPRITE, Can.SPRITE, 1);
+
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+        }
     }
 
     @Test
