@@ -1,5 +1,7 @@
 package eu.qwan.vender;
 
+import java.util.Optional;
+
 public class Drawer {
 
     private final Can can;
@@ -12,17 +14,11 @@ public class Drawer {
         this.price = price;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public boolean isEmpty() {
-        return inStock <= 0;
-    }
-
-    public Can withdraw() {
+    public Optional<Can> withdraw(Wallet wallet) {
+        if (inStock <= 0) return Optional.empty();
+        if (!wallet.pay(price)) return Optional.empty();
         inStock -= 1;
-        return can;
+        return Optional.of(can);
     }
 
     public void addStock(int quantity) {
