@@ -18,11 +18,11 @@ public class VendingMachine {
     }
 
     public Optional<Can> deliver(Choice choice) {
-        var drawer = Optional.ofNullable(drawers.get(choice)).orElse(null);
+        var drawer = Optional.ofNullable(drawers.get(choice))
+            .filter(d -> !d.isEmpty())
+            .orElse(null);
 
         if (drawer == null) return Optional.empty();
-
-        if (drawer.isEmpty()) return Optional.empty();
 
         if (wallet.deductPayment(drawer.getPrice())) {
             return Optional.of(drawer.withdraw());
