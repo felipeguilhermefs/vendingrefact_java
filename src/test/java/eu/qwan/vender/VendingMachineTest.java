@@ -3,22 +3,27 @@ package eu.qwan.vender;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class VendingMachineTest {
 
     private final VendingMachine machine = new VendingMachine();
 
-    @Test
-    public void choicelessMachineDeliversNothing() {
-        assertEquals(Optional.empty(), machine.deliver(Choice.COLA));
+    @Nested
+    class ChoilessMachine {
+
+        @Test
+        public void deliversNothing() {
+            for (Choice choice : Choice.values()) {
+                assertEquals(Optional.empty(), machine.deliver(choice));
+            }
+        }
     }
 
     @Test
     public void deliversCanOfChoice() {
-        machine.configure(Choice.COLA, Can.COLA, 10);
-        machine.configure(Choice.FANTA, Can.FANTA, 10);
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10);
         assertEquals(Optional.of(Can.COLA), machine.deliver(Choice.COLA));
         assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
         assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
