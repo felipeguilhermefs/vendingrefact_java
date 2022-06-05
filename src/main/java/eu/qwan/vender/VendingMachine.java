@@ -19,8 +19,8 @@ public class VendingMachine {
 
     public Optional<Can> deliver(Choice choice) {
         return Optional.ofNullable(drawers.get(choice))
-            .filter(d -> !d.isEmpty())
-            .filter(d -> wallet.deductPayment(d.getPrice()))
+            .filter(drawer -> !drawer.isEmpty())
+            .filter(drawer -> wallet.deductPayment(drawer.getPrice()))
             .map(Drawer::withdraw);
     }
 
