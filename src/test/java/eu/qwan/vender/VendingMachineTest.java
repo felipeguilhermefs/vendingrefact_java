@@ -34,22 +34,22 @@ public class VendingMachineTest {
 
         @Test
         public void deliversColaWhenColaIsChosen() {
-            assertEquals(Optional.of(Can.COLA), machine.deliver(Choice.COLA));
+            assertEquals(Optional.of(Can.COLA), machine.deliver(Can.COLA));
         }
 
         @Test
         public void deliversFantaWhenFantaIsChosen() {
-            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Can.FANTA));
         }
 
         @Test
         public void deliversSpriteWhenSpriteIsChosen() {
-            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Can.SPRITE));
         }
 
         @Test
         public void deliversNothingWhenInvalidChoice() {
-            assertEquals(Optional.empty(), machine.deliver(Choice.BEER));
+            assertEquals(Optional.empty(), machine.deliver(Can.BEER));
         }
     }
 
@@ -64,38 +64,38 @@ public class VendingMachineTest {
 
         @Test
         public void deliversNothingWhenNotPaid() {
-            assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.empty(), machine.deliver(Can.FANTA));
         }
 
         @Test
         public void deliversFantaWhenPaidExactAmount() {
             machine.insertCredits(2);
 
-            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Can.FANTA));
         }
 
         @Test
         public void deliversFantaWhenPaidMoreThanRequired() {
             machine.insertCredits(3);
 
-            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Can.FANTA));
         }
 
         @Test
         public void deliversAsManyFantasAsPaidFor() {
             machine.insertCredits(2);
 
-            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
-            assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Can.FANTA));
+            assertEquals(Optional.empty(), machine.deliver(Can.FANTA));
         }
 
         @Test
         public void deliversAsManySpritesAsPaidFor() {
             machine.insertCredits(2);
 
-            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-            assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Can.SPRITE));
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Can.SPRITE));
+            assertEquals(Optional.empty(), machine.deliver(Can.SPRITE));
         }
 
         @Test
@@ -103,14 +103,14 @@ public class VendingMachineTest {
             machine.insertCredits(1);
             machine.insertCredits(1);
 
-            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Can.FANTA));
         }
 
         @Test
         public void returnsChangeAfterBuyingFanta() {
             machine.insertCredits(3);
 
-            machine.deliver(Choice.FANTA);
+            machine.deliver(Can.FANTA);
 
             assertEquals(1, machine.getChange());
         }
@@ -119,7 +119,7 @@ public class VendingMachineTest {
         public void returnsNoChangeWhenUsedAllMoney() {
             machine.insertCredits(2);
 
-            machine.deliver(Choice.FANTA);
+            machine.deliver(Can.FANTA);
 
             assertEquals(0, machine.getChange());
         }
@@ -128,7 +128,7 @@ public class VendingMachineTest {
         public void returnsNoChangeWhenAskedASecondTime() {
             machine.insertCredits(3);
 
-            machine.deliver(Choice.FANTA);
+            machine.deliver(Can.FANTA);
 
             machine.getChange();
             assertEquals(0, machine.getChange());
@@ -145,17 +145,17 @@ public class VendingMachineTest {
 
         @Test
         public void deliversNothingWhenStockIsDepleted() {
-            machine.deliver(Choice.SPRITE);
+            machine.deliver(Can.SPRITE);
 
-            assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.empty(), machine.deliver(Can.SPRITE));
         }
 
         @Test
         public void deliversAfterStockIsAdded() {
-            machine.deliver(Choice.SPRITE);
+            machine.deliver(Can.SPRITE);
             machine.configure(Choice.SPRITE, Can.SPRITE, 1);
 
-            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Can.SPRITE));
         }
     }
 
@@ -172,7 +172,7 @@ public class VendingMachineTest {
             var chip = new Chipknip(10);
             machine.insertChip(chip);
 
-            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Can.SPRITE));
             assertEquals(9, chip.credits);
         }
 
@@ -181,7 +181,7 @@ public class VendingMachineTest {
             var chip = new Chipknip(0);
             machine.insertChip(chip);
 
-            assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+            assertEquals(Optional.empty(), machine.deliver(Can.SPRITE));
             assertEquals(0, chip.credits);
         }
     }
