@@ -27,9 +27,9 @@ public class VendingMachineTest {
 
         @BeforeEach
         public void setup() {
-            machine.configure(Choice.COLA, Can.COLA, 1);
-            machine.configure(Choice.FANTA, Can.FANTA, 1);
-            machine.configure(Choice.SPRITE, Can.SPRITE, 1);
+            machine.configure(Can.COLA, 1);
+            machine.configure(Can.FANTA, 1);
+            machine.configure(Can.SPRITE, 1);
         }
 
         @Test
@@ -58,8 +58,8 @@ public class VendingMachineTest {
 
         @BeforeEach
         public void setup() {
-            machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
-            machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
+            machine.configure(Can.FANTA, 10, 2);
+            machine.configure(Can.SPRITE, 10, 1);
         }
 
         @Test
@@ -140,7 +140,7 @@ public class VendingMachineTest {
 
         @BeforeEach
         public void setup() {
-            machine.configure(Choice.SPRITE, Can.SPRITE, 1);
+            machine.configure(Can.SPRITE, 1);
         }
 
         @Test
@@ -153,7 +153,7 @@ public class VendingMachineTest {
         @Test
         public void deliversAfterStockIsAdded() {
             machine.deliver(Can.SPRITE);
-            machine.configure(Choice.SPRITE, Can.SPRITE, 1);
+            machine.configure(Can.SPRITE, 1);
 
             assertEquals(Optional.of(Can.SPRITE), machine.deliver(Can.SPRITE));
         }
@@ -164,7 +164,7 @@ public class VendingMachineTest {
 
         @BeforeEach
         public void setup() {
-            machine.configure(Choice.SPRITE, Can.SPRITE, 1, 1);
+            machine.configure(Can.SPRITE, 1, 1);
         }
 
         @Test

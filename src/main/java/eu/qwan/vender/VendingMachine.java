@@ -28,11 +28,11 @@ public class VendingMachine {
         return wallet.withdraw();
     }
 
-    public void configure(Choice choice, Can can, int quantity) {
-        configure(choice, can, quantity, 0);
+    public void configure(Can can, int quantity) {
+        configure(can, quantity, 0);
     }
 
-    public void configure(Choice choice, Can can, int quantity, int price) {
+    public void configure(Can can, int quantity, int price) {
         drawers.computeIfAbsent(can, c -> new Drawer(c, 0, price))
             .addStock(quantity);
     }
