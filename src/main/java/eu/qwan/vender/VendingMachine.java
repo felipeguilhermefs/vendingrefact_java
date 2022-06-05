@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class VendingMachine {
 
-    private final Map<Choice, Drawer> drawers = new HashMap<>();
+    private final Map<Can, Drawer> drawers = new HashMap<>();
     private final Map<Can, Choice> canToChoice = new HashMap<>();
     private Wallet wallet = new Wallet();
 
@@ -19,10 +19,6 @@ public class VendingMachine {
     }
 
     public Optional<Can> deliver(Can choice) {
-        return deliver(canToChoice.get(choice));
-    }
-
-    public Optional<Can> deliver(Choice choice) {
         return Optional.ofNullable(drawers.get(choice))
             .filter(drawer -> !drawer.isEmpty())
             .filter(drawer -> wallet.pay(drawer.getPrice()))
@@ -38,7 +34,7 @@ public class VendingMachine {
     }
 
     public void configure(Choice choice, Can can, int quantity, int price) {
-        drawers.computeIfAbsent(choice, k -> new Drawer(can, 0, price))
+        drawers.computeIfAbsent(can, c -> new Drawer(c, 0, price))
             .addStock(quantity);
         canToChoice.put(can, choice);
     }
