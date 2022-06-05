@@ -18,7 +18,8 @@ public class VendingMachine {
     }
 
     public Optional<Can> deliverCan(Choice choice) {
-        return Optional.of(deliver(choice));
+        var can = deliver(choice);
+        return Optional.ofNullable(can == Can.none ? null : can);
     }
 
     public Can deliver(Choice choice) {

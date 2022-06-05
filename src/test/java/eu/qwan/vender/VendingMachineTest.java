@@ -10,8 +10,8 @@ public class VendingMachineTest {
 
 	@Test
 	public void Testchoiceless_machine_delivers_nothing() {
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.cola));
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.fanta));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.cola));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.fanta));
 	}
 
 	@Test
@@ -29,7 +29,7 @@ public class VendingMachineTest {
 		machine.configure(Choice.cola, Can.cola, 10);
 		machine.configure(Choice.fanta, Can.fanta, 10);
 		machine.configure(Choice.sprite, Can.sprite, 10);
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.beer));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.beer));
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class VendingMachineTest {
 		machine.configure(Choice.fanta, Can.fanta, 10, 2);
 		machine.configure(Choice.sprite, Can.sprite, 10, 1);
 
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.fanta));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.fanta));
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class VendingMachineTest {
 
 		machine.setValue(2);
 		assertEquals(Optional.of(Can.fanta), machine.deliverCan(Choice.fanta));
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.sprite));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.sprite));
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class VendingMachineTest {
 		machine.setValue(2);
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.sprite));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.sprite));
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class VendingMachineTest {
 		machine.setValue(1);
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.sprite));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.sprite));
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class VendingMachineTest {
 	public void Teststock() {
 		machine.configure(Choice.sprite, Can.sprite, 1, 0);
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.sprite));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.sprite));
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class VendingMachineTest {
 		machine.configure(Choice.sprite, Can.sprite, 1, 0);
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
 		assertEquals(Optional.of(Can.sprite), machine.deliverCan(Choice.sprite));
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.sprite));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.sprite));
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class VendingMachineTest {
 		machine.configure(Choice.sprite, Can.sprite, 1, 1);
 		ChipknipWallet chip = new ChipknipWallet(0);
 		machine.insertChip(chip);
-		assertEquals(Optional.of(Can.none), machine.deliverCan(Choice.sprite));
+		assertEquals(Optional.empty(), machine.deliverCan(Choice.sprite));
 		assertEquals(0, chip.credits);
 	}
 }
