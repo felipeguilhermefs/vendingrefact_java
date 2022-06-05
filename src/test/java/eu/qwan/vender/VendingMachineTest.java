@@ -159,21 +159,30 @@ public class VendingMachineTest {
         }
     }
 
-    @Test
-    public void checkoutChipIfChipknipInserted() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 1, 1);
-        Chipknip chip = new Chipknip(10);
-        machine.insertChip(chip);
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-        assertEquals(9, chip.credits);
-    }
+    @Nested
+    class ChipPaidMachine {
 
-    @Test
-    public void checkoutChipEmpty() {
-        machine.configure(Choice.SPRITE, Can.SPRITE, 1, 1);
-        Chipknip chip = new Chipknip(0);
-        machine.insertChip(chip);
-        assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
-        assertEquals(0, chip.credits);
+        @BeforeEach
+        public void setup() {
+            machine.configure(Choice.SPRITE, Can.SPRITE, 1, 1);
+        }
+
+        @Test
+        public void payWithChipWhenChipIsInserted() {
+            var chip = new Chipknip(10);
+            machine.insertChip(chip);
+
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+            assertEquals(9, chip.credits);
+        }
+
+        @Test
+        public void deliversNothingWhenChipIsEmpty() {
+            var chip = new Chipknip(0);
+            machine.insertChip(chip);
+
+            assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
+            assertEquals(0, chip.credits);
+        }
     }
 }
