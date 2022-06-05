@@ -10,13 +10,13 @@ public class VendingMachineTest {
     private final VendingMachine machine = new VendingMachine();
 
     @Test
-    public void Testchoiceless_machine_delivers_nothing() {
+    public void choicelessMachineDeliversNothing() {
         assertEquals(Optional.empty(), machine.deliver(Choice.COLA));
         assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
     }
 
     @Test
-    public void Testdelivers_can_of_choice() {
+    public void deliversCanOfChoice() {
         machine.configure(Choice.COLA, Can.COLA, 10);
         machine.configure(Choice.FANTA, Can.FANTA, 10);
         machine.configure(Choice.SPRITE, Can.SPRITE, 10);
@@ -26,7 +26,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testdelivers_nothing_when_making_invalid_choice() {
+    public void deliversNothingWhenMakingInvalidChoice() {
         machine.configure(Choice.COLA, Can.COLA, 10);
         machine.configure(Choice.FANTA, Can.FANTA, 10);
         machine.configure(Choice.SPRITE, Can.SPRITE, 10);
@@ -34,7 +34,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testdelivers_nothing_when_not_paid() {
+    public void deliversNothingWhenNotPaid() {
         machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
         machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
 
@@ -42,7 +42,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testdelivers_fanta_when_paid() {
+    public void deliversFantaWhenPaid() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
         machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
 
@@ -52,7 +52,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testdelivers_sprite_when_paid() {
+    public void deliversSpriteWhenPaid() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
         machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
 
@@ -63,7 +63,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testadd_payments() {
+    public void addPayments() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
         machine.configure(Choice.FANTA, Can.FANTA, 10, 2);
 
@@ -75,7 +75,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testreturns_change() {
+    public void returnsChange() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 10, 1);
         machine.insertCredits(2);
         assertEquals(2, machine.getChange());
@@ -83,14 +83,14 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Teststock() {
+    public void stock() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 1, 0);
         assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
         assertEquals(Optional.empty(), machine.deliver(Choice.SPRITE));
     }
 
     @Test
-    public void Testadd_stock() {
+    public void addStock() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 1, 0);
         machine.configure(Choice.SPRITE, Can.SPRITE, 1, 0);
         assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
@@ -99,7 +99,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testcheckout_chip_if_chipknip_inserted() {
+    public void checkoutChipIfChipknipInserted() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 1, 1);
         Chipknip chip = new Chipknip(10);
         machine.insertChip(chip);
@@ -108,7 +108,7 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void Testcheckout_chip_empty() {
+    public void checkoutChipEmpty() {
         machine.configure(Choice.SPRITE, Can.SPRITE, 1, 1);
         Chipknip chip = new Chipknip(0);
         machine.insertChip(chip);
