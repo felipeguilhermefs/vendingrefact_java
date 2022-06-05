@@ -12,7 +12,6 @@ public class VendingMachineTest {
     @Test
     public void choicelessMachineDeliversNothing() {
         assertEquals(Optional.empty(), machine.deliver(Choice.COLA));
-        assertEquals(Optional.empty(), machine.deliver(Choice.FANTA));
     }
 
     @Test
