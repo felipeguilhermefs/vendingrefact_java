@@ -18,22 +18,21 @@ public class VendingMachine {
     }
 
     public Optional<Can> deliverCan(Choice choice) {
-        var can = deliver(choice);
-        return Optional.ofNullable(can == Can.none ? null : can);
+        return Optional.ofNullable(deliver(choice));
     }
 
     public Can deliver(Choice choice) {
-        if (!drawers.containsKey(choice)) return Can.none;
+        if (!drawers.containsKey(choice)) return null;
 
         var drawer = drawers.get(choice);
 
-        if (drawer.isEmpty()) return Can.none;
+        if (drawer.isEmpty()) return null;
 
         if (wallet.deductPayment(drawer.getPrice())) {
             return drawer.withdraw();
         }
 
-        return Can.none;
+        return null;
     }
 
     public int getChange() {
