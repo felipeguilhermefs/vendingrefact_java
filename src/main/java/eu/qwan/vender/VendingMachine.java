@@ -10,7 +10,7 @@ public class VendingMachine {
     private Wallet wallet = new Wallet();
 
     public void insertCredits(int amount) {
-        wallet.addCredits(amount);
+        wallet.insert(amount);
     }
 
     public void insertChip(Chipknip chipknip) {
@@ -20,12 +20,12 @@ public class VendingMachine {
     public Optional<Can> deliver(Choice choice) {
         return Optional.ofNullable(drawers.get(choice))
             .filter(drawer -> !drawer.isEmpty())
-            .filter(drawer -> wallet.deductPayment(drawer.getPrice()))
+            .filter(drawer -> wallet.pay(drawer.getPrice()))
             .map(Drawer::withdraw);
     }
 
     public int getChange() {
-        return wallet.withdrawCredits();
+        return wallet.withdraw();
     }
 
     public void configure(Choice choice, Can can, int quantity) {

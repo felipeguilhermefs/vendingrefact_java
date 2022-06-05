@@ -4,18 +4,18 @@ public class Wallet {
 
     protected int credits;
 
-    public boolean deductPayment(int amount) {
+    public boolean pay(int amount) {
         if (amount > credits) return false;
 
         credits -= amount;
         return true;
     }
 
-    public void addCredits(int amount) {
+    public void insert(int amount) {
         credits += amount;
     }
 
-    public int withdrawCredits() {
+    public int withdraw() {
         int amount = credits;
         credits = 0;
         return amount;
