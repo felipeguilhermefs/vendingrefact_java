@@ -9,7 +9,7 @@ public class VendingMachine {
     private final Map<Choice, Drawer> drawers = new HashMap<>();
     private Wallet wallet = new Wallet();
 
-    public void setValue(int amount) {
+    public void insertCredits(int amount) {
         wallet.addCredits(amount);
     }
 
