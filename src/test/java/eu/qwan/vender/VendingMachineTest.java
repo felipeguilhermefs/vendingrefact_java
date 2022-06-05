@@ -22,19 +22,35 @@ public class VendingMachineTest {
         }
     }
 
-    @Test
-    public void deliversCanOfChoice() {
-        assertEquals(Optional.of(Can.COLA), machine.deliver(Choice.COLA));
-        assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
-        assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
-    }
+    @Nested
+    class FreeMachine {
 
-    @Test
-    public void deliversNothingWhenMakingInvalidChoice() {
-        machine.configure(Choice.COLA, Can.COLA, 10);
-        machine.configure(Choice.FANTA, Can.FANTA, 10);
-        machine.configure(Choice.SPRITE, Can.SPRITE, 10);
-        assertEquals(Optional.empty(), machine.deliver(Choice.BEER));
+        @BeforeEach
+        public void setup() {
+            machine.configure(Choice.COLA, Can.COLA, 1);
+            machine.configure(Choice.FANTA, Can.FANTA, 1);
+            machine.configure(Choice.SPRITE, Can.SPRITE, 1);
+        }
+
+        @Test
+        public void deliversColaWhenColaIsChosen() {
+            assertEquals(Optional.of(Can.COLA), machine.deliver(Choice.COLA));
+        }
+
+        @Test
+        public void deliversFantaWhenFantaIsChosen() {
+            assertEquals(Optional.of(Can.FANTA), machine.deliver(Choice.FANTA));
+        }
+
+        @Test
+        public void deliversSpriteWhenSpriteIsChosen() {
+            assertEquals(Optional.of(Can.SPRITE), machine.deliver(Choice.SPRITE));
+        }
+
+        @Test
+        public void deliversNothingWhenInvalidChoice() {
+            assertEquals(Optional.empty(), machine.deliver(Choice.BEER));
+        }
     }
 
     @Test
